@@ -6,6 +6,10 @@ using System.IO;
 // Assignment 1
 // NAME: Zixiao Wang
 // STUDENT NUMBER: 2022599
+// Marks: 100
+// Comments: Congratulations! You don't have any major fixes to do. I left some comments.
+// Apply the comments if you want and you are ready to start assignment 2.
+// You can search for these comments by going to each file and type Ctrl + F and search for TODO_COMMENT or TODO ERROR.
 
 namespace Assignment1
 {
@@ -149,6 +153,11 @@ namespace Assignment1
 
             if (sortEnabled)
             {
+                //TODO_COMMENT: Instead of comparing with specific name format, like "Name", or "Type"... You
+                //could use everything lowercase, like "name", "type"... and compare with sortColumnName.ToLower()
+                //giving the user more freedom to use your application.
+
+
                 // TODO: add implementation to determine the column name to trigger a different sort. (Hint: column names are the 4 properties of the weapon class)
 
                 // print: Sorting by <column name> e.g. BaseAttack
@@ -245,6 +254,29 @@ namespace Assignment1
 
             using (StreamReader reader = new StreamReader(fileName))
             {
+                //TODO_COMMENT: You don't need to create a try catch block for each one of the exceptions.
+                //Outside the while, you can initialize a lineNumber:
+                //int lineNumber = 0;
+
+                //You can replace all of your try catch by a single one:
+                //try
+                //{
+                //    if (values.Length == 4)
+                //    {
+                //        weapon.Name = values[0];
+                //        weapon.Type = values[1];
+                //        weapon.Rarity = int.Parse(values[2]);
+                //        weapon.BaseAttack = int.Parse(values[3]);
+                //        output.Add(weapon);
+                //    }
+                //    lineNumber++;
+                //}
+                //catch (Exception)
+                //{
+                //    Console.WriteLine("Unable to parse line {0}", lineNumber);
+                //}
+
+
                 // Skip the first line because header does not need to be parsed.
                 // Name,Type,Rarity,BaseAttack
 
