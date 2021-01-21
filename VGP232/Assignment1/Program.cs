@@ -3,13 +3,10 @@ using System.Collections.Generic;
 using System.IO;
 
 // TODO: Fill in your name and student number.
-// Assignment 1
+// Assignment 2a
 // NAME: Zixiao Wang
 // STUDENT NUMBER: 2022599
-// Marks: 100
-// Comments: Congratulations! You don't have any major fixes to do. I left some comments.
-// Apply the comments if you want and you are ready to start assignment 2.
-// You can search for these comments by going to each file and type Ctrl + F and search for TODO_COMMENT or TODO ERROR.
+// Marks: 
 
 namespace Assignment1
 {
@@ -98,13 +95,13 @@ namespace Assignment1
                     {
                         // stores the column name in the next argument
                         ++i;
-                        sortColumnName = args[i];
+                        sortColumnName = args[i].ToLower();
 
                         if(string.IsNullOrEmpty(sortColumnName))
                         {
                             Console.WriteLine("No column name specified");
                         }
-                        else if (sortColumnName == "Name" || sortColumnName == "Type" || sortColumnName == "Rarity" || sortColumnName == "BaseAttack")
+                        else if (sortColumnName == "name" || sortColumnName == "type" || sortColumnName == "rarity" || sortColumnName == "baseattack")
                         {
                             sortEnabled = true;
                         }
@@ -163,17 +160,17 @@ namespace Assignment1
                 // print: Sorting by <column name> e.g. BaseAttack
                 Console.WriteLine("Sorting by {0}", sortColumnName);
 
-                if(sortColumnName == "Name")
+                if(sortColumnName == "name")
                 {
                     // Sorts the list based off of the Weapon name.
                     results.Sort(Weapon.CompareByName);
                 }
-                else if (sortColumnName == "Type")
+                else if (sortColumnName == "type")
                 {
                     // Sorts the list based off of the Weapon Type.
                     results.Sort(Weapon.CompareByType);
                 }
-                else if (sortColumnName == "Rarity")
+                else if (sortColumnName == "rarity")
                 {
                     // Sorts the list based off of the Weapon Rarity.
                     results.Sort(Weapon.CompareByRarity);
