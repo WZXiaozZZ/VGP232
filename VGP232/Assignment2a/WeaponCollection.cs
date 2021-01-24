@@ -148,6 +148,19 @@ namespace Assignment2a
             }
         }
 
+        //TODO_ERROR: -1
+        //TODO_COMMENT: You are always creating a file. Try to do a safety check and choose between Append and create
+        //TODO_FIX: Create fs and don't initialize. After do these checks:
+        // If append flag is set open the file in append mode; otherwise, create the file to write.
+        //if (File.Exists((filename)))
+        //{
+        //    fs = File.Open(filename, FileMode.Append);
+        //}
+        //else
+        //{
+        //    fs = File.Open(filename, FileMode.Create);
+        //}
+
         public bool Save(string filename)
         {
             if (!string.IsNullOrEmpty(filename))

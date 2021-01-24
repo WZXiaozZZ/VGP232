@@ -46,6 +46,11 @@ namespace Assignment2a
         [Test]
         public void WeaponCollection_GetHighestBaseAttack_HighestValue()
         {
+            //TODO_ERROR: -2 Marks
+            //TODO_COMMENT: You are not loading the weapons
+            //TODO_FIX: call weaponCollection.Load(inputPath);
+
+
             // Expected Value: 48
             // TODO: call WeaponCollection.GetHighestBaseAttack() and confirm that it matches the expected value using asserts.
             try
@@ -65,6 +70,10 @@ namespace Assignment2a
         [Test]
         public void WeaponCollection_GetLowestBaseAttack_LowestValue()
         {
+            //TODO_ERROR: -2 Marks
+            //TODO_COMMENT: You are not loading the weapons
+            //TODO_FIX: call weaponCollection.Load(inputPath);
+
             // Expected Value: 23
             // TODO: call WeaponCollection.GetLowestBaseAttack() and confirm that it matches the expected value using asserts.
             try
@@ -84,6 +93,10 @@ namespace Assignment2a
         [TestCase(WeaponType.Sword, 21)]
         public void WeaponCollection_GetAllWeaponsOfType_ListOfWeapons(WeaponType type, int expectedValue)
         {
+            //TODO_ERROR: -2 Marks
+            //TODO_COMMENT: You are not loading the weapons
+            //TODO_FIX: call weaponCollection.Load(inputPath);
+
             // TODO: call WeaponCollection.GetAllWeaponsOfType(type) and confirm that the weapons list returns Count matches the expected value using asserts.
             try
             {
@@ -101,6 +114,10 @@ namespace Assignment2a
         [TestCase(5, 10)]
         public void WeaponCollection_GetAllWeaponsOfRarity_ListOfWeapons(int stars, int expectedValue)
         {
+            //TODO_ERROR: -2 Marks
+            //TODO_COMMENT: You are not loading the weapons
+            //TODO_FIX: call weaponCollection.Load(inputPath);
+
             // TODO: call WeaponCollection.GetAllWeaponsOfRarity(stars) and confirm that the weapons list returns Count matches the expected value using asserts.
             try
             {
