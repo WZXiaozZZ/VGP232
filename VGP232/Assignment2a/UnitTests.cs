@@ -17,11 +17,25 @@ namespace Assignment2a
 
         const string INPUT_FILE = "data2.csv";
         const string OUTPUT_FILE = "output.csv";
+        private List<string> OUTPUT_FILES = new List<string> { 
+            "weapons.csv", "empty.csv",
+            "weapons.XML", "empty.XML",
+            "weapons.json", "empty.json",
+        };
+
 
         // A helper function to get the directory of where the actual path is.
         private string CombineToAppPath(string filename)
         {
             return Path.Combine(AppDomain.CurrentDomain.BaseDirectory, filename);
+        }
+
+        private void DeleteFile(string path)
+        {
+            if (File.Exists(path))
+            {
+                File.Delete(path);
+            }
         }
 
         [SetUp]
@@ -30,23 +44,15 @@ namespace Assignment2a
             inputPath = CombineToAppPath(INPUT_FILE);
             outputPath = CombineToAppPath(OUTPUT_FILE);
             WeaponCollection = new WeaponCollection();
-            WeaponCollection.Load(inputPath);
+            WeaponCollection.Load(INPUT_FILE);
         }
 
         [TearDown]
         public void CleanUp()
         {
-            // We remove the output file after we are done.
-            if (File.Exists(outputPath))
-            {
-                File.Delete(outputPath);
-            }
+            DeleteFile(outputPath);
+            OUTPUT_FILES.ForEach(x => DeleteFile(CombineToAppPath(x)));
         }
-
-        //TODO_ERROR: -2 Marks
-        //TODO_COMMENT: You are not loading the weapons
-        //TODO_FIX: call weaponCollection.Load(inputPath);
-
 
         // WeaponCollection Unit Tests
         [Test]
@@ -239,6 +245,144 @@ namespace Assignment2a
             string line = "1,Bulbasaur,A,B,C,65,65";
             Assert.IsFalse(Weapon.TryParse(line, out weapon));
             Assert.AreEqual(weapon, null);
+        }
+
+        // Output Files
+        // 0 = "weapons.csv"
+        // 1 = "empty.csv"
+        // 2 = "weapons.XML"
+        // 3 = "empty.XML"
+        // 4 = "weapons.json"
+        // 5 = "empty.json"
+
+        // Test LoadJSON Valid
+        [Test]
+        public void WeaponCollection_Load_Save_Load_ValidJson()
+        {
+            WeaponCollection.Save(OUTPUT_FILES[4]);
+            Assert.IsTrue(WeaponCollection.Load(OUTPUT_FILES[4]));
+            Assert.AreEqual(WeaponCollection.Size(), 95);
+        }
+
+        [Test]
+        public void WeaponCollection_Load_SaveAsJSON_Load_ValidJson()
+        {
+            WeaponCollection.SaveAsJSON(OUTPUT_FILES[4]);
+            Assert.IsTrue(WeaponCollection.Load(OUTPUT_FILES[4]));
+            Assert.AreEqual(WeaponCollection.Size(), 95);
+        }
+
+        [Test]
+        public void WeaponCollection_Load_SaveAsJSON_LoadJSON_ValidJson()
+        {
+            WeaponCollection.SaveAsJSON(OUTPUT_FILES[4]);
+            Assert.IsTrue(WeaponCollection.LoadJSON(OUTPUT_FILES[4]));
+            Assert.AreEqual(WeaponCollection.Size(), 95);
+        }
+
+        [Test]
+        public void WeaponCollection_Load_Save_LoadJSON_ValidJson()
+        {
+            WeaponCollection.Save(OUTPUT_FILES[4]);
+            Assert.IsTrue(WeaponCollection.LoadJSON(OUTPUT_FILES[4]));
+            Assert.AreEqual(WeaponCollection.Size(), 95);
+        }
+
+        // Test LoadCSV Valid
+        [Test]
+        public void WeaponCollection_Load_Save_Load_ValidCsv()
+        {
+            WeaponCollection.Save(OUTPUT_FILES[0]);
+            Assert.IsTrue(WeaponCollection.Load(OUTPUT_FILES[0]));
+            Assert.AreEqual(WeaponCollection.Size(), 95);
+        }
+
+        [Test]
+        public void WeaponCollection_Load_SaveAsCSV_LoadCSV_ValidCsv()
+        {
+
+            WeaponCollection.SaveAsCSV(OUTPUT_FILES[0]);
+            Assert.IsTrue(WeaponCollection.LoadCSV(OUTPUT_FILES[0]));
+            Assert.AreEqual(WeaponCollection.Size(), 95);
+
+        }
+
+        // Test LoadXML Valid
+        [Test]
+        public void WeaponCollection_Load_Save_Load_ValidXml()
+        {
+            WeaponCollection.Save(OUTPUT_FILES[2]);
+            Assert.IsTrue(WeaponCollection.Load(OUTPUT_FILES[2]));
+            Assert.AreEqual(WeaponCollection.Size(), 95);
+        }
+
+        [Test]
+        public void WeaponCollection_Load_SaveAsXML_LoadXML_ValidXml()
+        {
+            WeaponCollection.SaveAsXML(OUTPUT_FILES[2]);
+            Assert.IsTrue(WeaponCollection.LoadXML(OUTPUT_FILES[2]));
+            Assert.AreEqual(WeaponCollection.Size(), 95);
+        }
+
+        // Test SaveAsJSON Empty
+        [Test]
+        public void WeaponCollection_SaveEmpty_Load_ValidJson()
+        {
+            WeaponCollection = new WeaponCollection();
+            WeaponCollection.SaveAsJSON(OUTPUT_FILES[5]);
+            Assert.IsTrue(WeaponCollection.Load(OUTPUT_FILES[5]));
+            Assert.AreEqual(WeaponCollection.Size(), 0);
+        }
+
+        // Test SaveAsCSV Empty
+        [Test]
+        public void WeaponCollection_SaveEmpty_Load_ValidCsv()
+        {
+            WeaponCollection = new WeaponCollection();
+            WeaponCollection.SaveAsCSV(OUTPUT_FILES[1]);
+            Assert.IsTrue(WeaponCollection.Load(OUTPUT_FILES[1]));
+            Assert.AreEqual(WeaponCollection.Size(), 0);
+        }
+
+        // Test SaveAsXML Empty
+        [Test]
+        public void WeaponCollection_SaveEmpty_Load_ValidXml()
+        {
+            WeaponCollection = new WeaponCollection();
+            WeaponCollection.SaveAsXML(OUTPUT_FILES[3]);
+            Assert.IsTrue(WeaponCollection.Load(OUTPUT_FILES[3]));
+            Assert.AreEqual(WeaponCollection.Size(), 0);
+        }
+
+        // Test Load InvalidFormat
+        [Test]
+        public void WeaponCollection_Load_SaveJSON_LoadXML_InvalidXml()
+        {
+            WeaponCollection.SaveAsJSON(OUTPUT_FILES[4]);
+            Assert.IsFalse(WeaponCollection.LoadXML(OUTPUT_FILES[4]));
+            Assert.AreEqual(WeaponCollection.Size(), 0);
+        }
+
+        [Test]
+        public void WeaponCollection_Load_SaveXML_LoadJSON_InvalidJson()
+        {
+            WeaponCollection.SaveAsXML(OUTPUT_FILES[2]);
+            Assert.IsFalse(WeaponCollection.LoadJSON(OUTPUT_FILES[2]));
+            Assert.AreEqual(WeaponCollection.Size(), 0);
+        }
+
+        [Test]
+        public void WeaponCollection_ValidCsv_LoadXML_InvalidXml()
+        {
+            Assert.IsFalse(WeaponCollection.LoadXML(inputPath));
+            Assert.AreEqual(WeaponCollection.Size(), 0);
+        }
+
+        [Test]
+        public void WeaponCollection_ValidCsv_LoadJSON_InvalidJson()
+        {
+            Assert.IsFalse(WeaponCollection.LoadJSON(inputPath));
+            Assert.AreEqual(WeaponCollection.Size(), 0);
         }
     }
 }

@@ -1,11 +1,14 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Text;
+using System.Xml.Serialization;
 
 namespace Assignment2a
 {
-    public class WeaponCollection : List<Weapon>, IPeristence
+    [Serializable]
+    public class WeaponCollection : List<Weapon>, IPeristence, ICsvSerializable, IXmlSerializable, IJsonSerializable
     {
         private List<Weapon> weapons = new List<Weapon>();
         
@@ -99,31 +102,84 @@ namespace Assignment2a
 
         }
 
-        // check if sorted by given column
-        public void test()
+        public bool Load(string filename)
         {
-            Console.WriteLine(weapons[0].BaseAttack);
-            Console.WriteLine(weapons[1].BaseAttack);
-            Console.WriteLine(weapons[2].BaseAttack);
-            Console.WriteLine(weapons[3].BaseAttack);
-            Console.WriteLine(weapons[4].BaseAttack);
+            weapons.Clear();
+
+            if (string.IsNullOrEmpty(filename))
+            {
+                Console.WriteLine("No input file specified");
+                return false;
+            }
+
+            if (!File.Exists(filename))
+            {
+                Console.WriteLine("The file specified does not exist");
+                return false;
+            }
+
+            string fileExtension;
+            try
+            {
+                fileExtension = Path.GetExtension(filename);
+            }
+            catch (Exception)
+            {
+                Console.WriteLine("The path provided is invalid");
+                return false;
+            }
+
+            switch (fileExtension)
+            {
+                case ".csv":
+                    return LoadCSV(filename);
+                case ".XML":
+                    return LoadXML(filename);
+                case ".json":
+                    return LoadJSON(filename);
+                default:
+                    Console.WriteLine("Error to load data. Unsupported file extension");
+                    return false;
+            }
         }
 
-        public bool Load(string filename)
+        public bool Save(string filename)
         {
             if (string.IsNullOrEmpty(filename))
             {
                 Console.WriteLine("No input file specified");
-                weapons.Clear();
                 return false;
             }
-            else if (!File.Exists(filename))
+
+            string fileExtension;
+            try
             {
-                Console.WriteLine("The file specified does not exist");
-                weapons.Clear();
+                fileExtension = Path.GetExtension(filename);
+            }
+            catch (Exception)
+            {
+                Console.WriteLine("The path provided is invalid");
                 return false;
             }
-            using (StreamReader reader = new StreamReader(filename))
+            switch (fileExtension)
+            {
+                case ".csv":
+                    return SaveAsCSV(filename);
+                case ".XML":
+                    return SaveAsXML(filename);
+                case ".json":
+                    return SaveAsJSON(filename);
+                default:
+                    Console.WriteLine("Error to save data. Unsupported file extension");
+                    return false;
+            }
+        }
+
+        public bool LoadCSV(string path)
+        {
+            weapons.Clear();
+
+            using (StreamReader reader = new StreamReader(path))
             {
                 string line = reader.ReadLine();
                 int lineNumber = 1;
@@ -133,7 +189,6 @@ namespace Assignment2a
                     line = reader.ReadLine();
                     if (Weapon.TryParse(line, out theWeapon))
                     {
-                        //Console.WriteLine(theWeapon);
                         weapons.Add(theWeapon);
                     }
                     else
@@ -144,53 +199,121 @@ namespace Assignment2a
                     }
                     ++lineNumber;
                 }
+                Console.WriteLine("Load data from csv file");
                 return true;
             }
         }
-
-        //TODO_ERROR: -1
-        //TODO_COMMENT: You are always creating a file. Try to do a safety check and choose between Append and create
-        //TODO_FIX: Create fs and don't initialize. After do these checks:
-        // If append flag is set open the file in append mode; otherwise, create the file to write.
-        //if (File.Exists((filename)))
-        //{
-        //    fs = File.Open(filename, FileMode.Append);
-        //}
-        //else
-        //{
-        //    fs = File.Open(filename, FileMode.Create);
-        //}
-
-        public bool Save(string filename)
+        public bool SaveAsCSV(string path)
         {
-            if (!string.IsNullOrEmpty(filename))
+            try
             {
-                FileStream fs = File.Open(filename, FileMode.Create);
-
-                // opens a stream writer with the file handle to write to the output file.
-                using (StreamWriter writer = new StreamWriter(fs))
+                if (File.Exists((path)))
                 {
-                    // Hint: use writer.WriteLine
-                    // TODO: write the header of the output "Name,Type,Rarity,BaseAttack"   `
-                    writer.WriteLine("Name,Type,Image,Rarity,BaseAttack,SecondaryStat,Passive");
-
-                    // TODO: use the writer to output the results.
-                    weapons.ForEach(writer.WriteLine);
-
-                    // TODO: print out the file has been saved.
-                    Console.WriteLine("The file has been saved");
-                    return true;
+                    FileStream fs = File.Open(path, FileMode.Append);
+                    using (StreamWriter writer = new StreamWriter(fs))
+                    {
+                        weapons.ForEach(writer.WriteLine);
+                    }
                 }
+                else
+                {
+                    FileStream fs = File.Open(path, FileMode.Create);
+                    using (StreamWriter writer = new StreamWriter(fs))
+                    {
+                        writer.WriteLine("Name,Type,Image,Rarity,BaseAttack,SecondaryStat,Passive");
+                        weapons.ForEach(writer.WriteLine);
+                    }
+                }
+                Console.WriteLine("Save data to csv file");
+                return true;
             }
-            else
+            catch (Exception)
+            { 
+                Console.WriteLine("Error to save data to csv file");
+                return false;
+            }
+
+        }
+        public bool LoadXML(string path)
+        {
+            weapons.Clear();
+
+            try
             {
-                Console.WriteLine("No output file provided");
+                using (FileStream fs = new FileStream(path, FileMode.Open))
+                {
+                    XmlSerializer xs = new XmlSerializer(typeof(List<Weapon>));
+                    weapons.Clear();
+                    weapons = (List<Weapon>)xs.Deserialize(fs);
+                }
+                Console.WriteLine("Load data from XML file");
+                return true;
+            }
+            catch (Exception)
+            {
+                Console.WriteLine("Error to load data from XML file");
+                weapons.Clear();
+                return false;
+            }
+
+        }
+        public bool SaveAsXML(string path)
+        {
+            try
+            {
+                using (FileStream fs = new FileStream(path, FileMode.Create))
+                {
+                    XmlSerializer xs = new XmlSerializer(typeof(List<Weapon>));
+                    xs.Serialize(fs, weapons);
+                }
+
+                Console.WriteLine("Save data to XML file");
+                return true;
+            }
+            catch (Exception)
+            {
+                Console.WriteLine("Error to save data to XML file");
                 return false;
             }
         }
+        public bool LoadJSON(string path)
+        {
+            weapons.Clear();
 
-
-
-
+            try
+            {
+                using (StreamReader content = new StreamReader(path))
+                {
+                    string weaponAsJson = content.ReadToEnd();
+                    weapons = JsonConvert.DeserializeObject<List<Weapon>>(weaponAsJson);
+                }
+                Console.WriteLine("Load data from json file");
+                return true;
+            }
+            catch (Exception)
+            {
+                Console.WriteLine("Error to load data from json file");
+                weapons.Clear();
+                return false;
+            }
+        }
+        public bool SaveAsJSON(string path)
+        {
+            try
+            {
+                using (StreamWriter file = File.CreateText(path))
+                {
+                    JsonSerializer serializer = new JsonSerializer();
+                    serializer.Serialize(file, weapons);
+                }
+                Console.WriteLine("Save data to json file");
+                return true;
+            }
+            catch (Exception)
+            {
+                Console.WriteLine("Error to save data to json file");
+                return false;
+            }
+        }
     }
 }

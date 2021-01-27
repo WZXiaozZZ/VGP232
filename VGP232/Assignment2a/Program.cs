@@ -151,27 +151,8 @@ namespace Assignment2a
                 Console.WriteLine("There are {0} entries", results.Size());
             }
 
-            //results.test();
-            //Console.WriteLine(results.GetHighestBaseAttack());
-            //Console.WriteLine(results.GetLowestBaseAttack());
-            //var swords = results.GetAllWeaponsOfType(WeaponType.Sword);
-            //swords.ForEach(Console.WriteLine);
-
             results.Save(outputFile);
             Console.WriteLine("Done!");
-
-            Console.WriteLine("Unit Tests");
-            UnitTests unitTest = new UnitTests();
-            unitTest.CleanUp();
-            unitTest.SetUp();
-            
-            unitTest.WeaponCollection_GetHighestBaseAttack_HighestValue();
-            unitTest.WeaponCollection_GetAllWeaponsOfRarity_ListOfWeapons(5,10);
-            unitTest.Weapon_TryParseValidLine_TruePropertiesSet();
-            unitTest.WeaponCollection_SaveEmpty_TrueAndEmpty();
-            unitTest.WeaponCollection_LoadThatDoesNotExist_FalseAndEmpty();
-            unitTest.WeaponCollection_LoadThatExistAndValid_True();
-
         }
     }
 }
