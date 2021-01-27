@@ -30,6 +30,7 @@ namespace Assignment2a
             inputPath = CombineToAppPath(INPUT_FILE);
             outputPath = CombineToAppPath(OUTPUT_FILE);
             WeaponCollection = new WeaponCollection();
+            WeaponCollection.Load(inputPath);
         }
 
         [TearDown]
@@ -51,7 +52,7 @@ namespace Assignment2a
         [Test]
         public void WeaponCollection_GetHighestBaseAttack_HighestValue()
         {
-            
+
             // Expected Value: 48
             // TODO: call WeaponCollection.GetHighestBaseAttack() and confirm that it matches the expected value using asserts.
             try
@@ -64,8 +65,8 @@ namespace Assignment2a
                 Console.WriteLine("Error. The highest BaseAttack is not 48");
                 return;
             }
-
             Console.WriteLine("The highest BaseAttack is 48");
+
         }
 
         [Test]
@@ -73,6 +74,7 @@ namespace Assignment2a
         {
             // Expected Value: 23
             // TODO: call WeaponCollection.GetLowestBaseAttack() and confirm that it matches the expected value using asserts.
+
             try
             {
                 Assert.AreEqual(WeaponCollection.GetLowestBaseAttack(), 23);

@@ -164,14 +164,13 @@ namespace Assignment2a
             UnitTests unitTest = new UnitTests();
             unitTest.CleanUp();
             unitTest.SetUp();
-            unitTest.WeaponCollection_LoadThatExistAndValid_True();
             
             unitTest.WeaponCollection_GetHighestBaseAttack_HighestValue();
             unitTest.WeaponCollection_GetAllWeaponsOfRarity_ListOfWeapons(5,10);
             unitTest.Weapon_TryParseValidLine_TruePropertiesSet();
-
             unitTest.WeaponCollection_SaveEmpty_TrueAndEmpty();
             unitTest.WeaponCollection_LoadThatDoesNotExist_FalseAndEmpty();
+            unitTest.WeaponCollection_LoadThatExistAndValid_True();
 
         }
     }
