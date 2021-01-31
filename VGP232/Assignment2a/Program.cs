@@ -6,8 +6,8 @@ using System.IO;
 // Assignment 1
 // NAME: Zixiao Wang
 // STUDENT NUMBER: 2022599
-// Marks: 97/100
-// Comments: Excelent job! Missed some marks on the Unit test, because you didn't setup properly your weaponList.
+// Marks: 99/100
+// Comments: Great job!
 // You can search for these comments by going to each file and type Ctrl + F and search for TODO_COMMENT or TODO ERROR.
 
 namespace Assignment2a

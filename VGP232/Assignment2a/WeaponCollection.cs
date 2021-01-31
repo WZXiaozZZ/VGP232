@@ -128,7 +128,7 @@ namespace Assignment2a
                 Console.WriteLine("The path provided is invalid");
                 return false;
             }
-
+            //TODO_COMMENT: Best Practice: if the checks are less than 5, use if statements.
             switch (fileExtension)
             {
                 case ".csv":
@@ -161,6 +161,7 @@ namespace Assignment2a
                 Console.WriteLine("The path provided is invalid");
                 return false;
             }
+            //TODO_COMMENT: Best practice: If it's less than 5 checks, use if statements.
             switch (fileExtension)
             {
                 case ".csv":
@@ -194,6 +195,7 @@ namespace Assignment2a
                     else
                     {
                         Console.WriteLine("Unable to parse line {0}", lineNumber);
+                        //TODO_COMMENT: Since you are cleaning the list at the beginning, You don't need to clear here
                         weapons.Clear();
                         return false;
                     }
@@ -238,6 +240,8 @@ namespace Assignment2a
         {
             weapons.Clear();
 
+            //TODO_COMMENT: You are already cleanning the weapons list outside. 
+            //It's redundant to clean in every step of the code.
             try
             {
                 using (FileStream fs = new FileStream(path, FileMode.Open))
@@ -297,6 +301,10 @@ namespace Assignment2a
                 return false;
             }
         }
+
+        //TODO_ERROR: -1
+        //TODO_COMMENT: You are using JSonConverter to load and JSonSerializer to Save
+        //TODO_FIX: Try to stick with the same option for Serialization and Deserialization. Good practice.
         public bool SaveAsJSON(string path)
         {
             try
