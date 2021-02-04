@@ -1,0 +1,60 @@
+﻿<Window x:Class="Assignment2C.WeaponEditor"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Assignment2C"
+        mc:Ignorable="d"
+        Title="Weapons Editor" Height="700" Width="500">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="10*"/>
+            <RowDefinition Height="100*"/>
+            <RowDefinition Height="50*"/>
+            <RowDefinition Height="50*"/>
+            <RowDefinition Height="30*"/>
+            <RowDefinition Height="30*"/>
+            <RowDefinition Height="30*"/>
+            <RowDefinition Height="30*"/>
+            <RowDefinition Height="30*"/>
+            <RowDefinition Height="30*"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="10*"/>
+            <ColumnDefinition Width="115*"/>
+            <ColumnDefinition Width="144*"/>
+            <ColumnDefinition Width="140*"/>
+            <ColumnDefinition Width="91*"/>
+        </Grid.ColumnDefinitions>
+
+        <ListBox Name="weaponList" Margin="5,5,5,5" Grid.RowSpan="6" Grid.Row="4" Grid.Column="1" Grid.ColumnSpan="3"></ListBox>
+        <Button Click="LoadButtonClicked" Content="Load" Height="30" Width="60" Grid.Column="4" Grid.Row="1" HorizontalAlignment="Center" VerticalAlignment="Top"></Button>
+        <Button Click="SaveButtonClicked" Content="Save" Height="30" Width="60" Grid.Column="4" Grid.Row="1" HorizontalAlignment="Center" VerticalAlignment="Center"></Button>
+        <Button Click="AddButtonClicked" Content="Add" Height="30" Width="60" Grid.Column="4" Grid.Row="4" HorizontalAlignment="Center" VerticalAlignment="Center"></Button>
+        <Button Click="EditButtonClicked" Content="Edit" Height="30" Width="60" Grid.Column="4" Grid.Row="5" HorizontalAlignment="Center" VerticalAlignment="Center"></Button>
+        <Button Click="RemoveButtonClicked" Content="Remove" Height="30" Width="60" Grid.Column="4" Grid.Row="6" HorizontalAlignment="Center" VerticalAlignment="Center"></Button>
+
+        <TextBlock Text="Sort By" Grid.Row="1" Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Center" Height="16" Width="37"/>
+        
+        <StackPanel Grid.Row="1" Grid.Column="2" VerticalAlignment="Center">
+            <RadioButton x:Name="name" Click="RadioButtonChecked" IsChecked="true" Content="Name" Margin="10" GroupName="sortby"/>
+            <RadioButton x:Name="rarity" Click="RadioButtonChecked" Content="Rarity" Margin="10" GroupName="sortby"/>
+            <RadioButton x:Name="secondarystat" Click="RadioButtonChecked" Content="SecondaryStat" Margin="10" GroupName="sortby"/>
+        </StackPanel>
+        
+        <StackPanel Grid.Row="1" Grid.Column="3" VerticalAlignment="Center">
+            <RadioButton x:Name="baseattack" Click="RadioButtonChecked" Content="BaseAttack" Margin="10" GroupName="sortby"/>
+            <RadioButton x:Name="passive" Click="RadioButtonChecked" Content="Passive" Margin="10" GroupName="sortby"/>
+        </StackPanel>
+
+
+
+        <TextBlock Text="Show Only Type" Grid.Column="1" Grid.Row="2" VerticalAlignment="Center" HorizontalAlignment="Center" Height="16" Width="85"/>
+        <ComboBox Name="typeshow" Grid.Column="2" Grid.Row="2" VerticalAlignment="Center" HorizontalAlignment="Center" Width="240" SelectionChanged="typeshow_SelectionChanged" Grid.ColumnSpan="2" Height="22"/>
+
+        <TextBlock Text="Filter by Name" Grid.Column="1" Grid.Row="3" VerticalAlignment="Center" HorizontalAlignment="Center" Height="15" Width="77"/>
+        <TextBox x:Name="filterByName" Grid.Column="2" Grid.Row="3" VerticalAlignment="Center" HorizontalAlignment="Center" Width="240" TextChanged="filterByName_TextChanged" Grid.ColumnSpan="2" Height="17"/>
+
+
+    </Grid>
+</Window>

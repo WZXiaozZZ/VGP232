@@ -5,17 +5,22 @@ using System.IO;
 using System.Text;
 using System.Xml.Serialization;
 
-namespace Assignment2a
+namespace WeaponLib
 {
     [Serializable]
     public class WeaponCollection : List<Weapon>, IPeristence, ICsvSerializable, IXmlSerializable, IJsonSerializable
     {
-        private List<Weapon> weapons = new List<Weapon>();
-        
+        public List<Weapon> weapons { get; set; }
+        public WeaponCollection()
+        {
+            weapons = new List<Weapon>();
+        }
+
         public int Size()
         {
             return weapons.Count;
         }
+
 
         public int GetHighestBaseAttack()
         {
@@ -75,12 +80,12 @@ namespace Assignment2a
                 // Sorts the list based off of the Weapon Rarity.
                 weapons.Sort(Weapon.CompareByRarity);
             }
-            else if (columnName=="baseattack")
+            else if (columnName == "baseattack")
             {
                 // Sorts the list based off of the Weapon BaseAttack.
                 weapons.Sort(Weapon.CompareByBaseAttack);
             }
-            else if(columnName=="image")
+            else if (columnName == "image")
             {
                 // Sorts the list based off of the Weapon Image.
                 weapons.Sort(Weapon.CompareByImage);
@@ -240,7 +245,7 @@ namespace Assignment2a
                 return true;
             }
             catch (Exception)
-            { 
+            {
                 Console.WriteLine("Error to save data to csv file");
                 return false;
             }

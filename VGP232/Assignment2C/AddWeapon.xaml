@@ -1,0 +1,56 @@
+﻿<Window x:Class="Assignment2C.AddWeapon"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Assignment2C"
+        mc:Ignorable="d"
+        Title="Add Weapon" Height="700" Width="500">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="10*"/>
+            <ColumnDefinition Width="200*"/>
+            <ColumnDefinition Width="300*"/>
+            <ColumnDefinition Width="10*"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="10*"/>
+            <RowDefinition Height="30*"/>
+            <RowDefinition Height="30*"/>
+            <RowDefinition Height="50*"/>
+            <RowDefinition Height="30*"/>
+            <RowDefinition Height="30*"/>
+            <RowDefinition Height="30*"/>
+            <RowDefinition Height="30*"/>
+            <RowDefinition Height="30*"/>
+            <RowDefinition Height="20*"/>
+            <RowDefinition Height="10*"/>
+        </Grid.RowDefinitions>
+        <TextBlock Text="Name:" Grid.Row="1" Grid.Column="1"/>
+        <TextBlock Text="Type:" Grid.Row="2" Grid.Column="1"/>
+        <TextBlock Text="Image URL:" Grid.Row="4" Grid.Column="1"/>
+        <TextBlock Text="Rarity:" Grid.Row="5" Grid.Column="1"/>
+        <TextBlock Text="Base Attack:" Grid.Row="6" Grid.Column="1"/>
+        <TextBlock Text="Secondary Stat:" Grid.Row="7" Grid.Column="1"/>
+        <TextBlock Text="Passive:" Grid.Row="8" Grid.Column="1"/>
+
+        <TextBox Text="{Binding Name}" Grid.Row="1" Grid.Column="2"/>
+        <ComboBox Name="type" Text="{Binding Type}" Grid.Row="2" Grid.Column="2"/>
+        <Image Name="image" Grid.Row="3" Grid.Column="2" Source="{Binding Image}"/>
+        <TextBox Text="{Binding Image}" Grid.Row="4" Grid.Column="2" TextWrapping="Wrap"/>
+        <ComboBox Name="rarity" Text="{Binding Rarity}" Grid.Row="5" Grid.Column="2"/>
+        <TextBox Name="baseattack" Text="{Binding BaseAttack}" Grid.Row="6" Grid.Column="2"/>
+        <TextBox Text="{Binding SecondaryStat}" Grid.Row="7" Grid.Column="2"/>
+        <TextBox Text="{Binding Passive}" Grid.Row="8" Grid.Column="2"/>
+
+        <StackPanel Grid.Column="1" Grid.Row="9" Orientation="Horizontal" HorizontalAlignment="Left">
+            <Button Content="Generate" Width="60" Margin="4 1 4 1" Click="GeneratePressed"/>
+        </StackPanel>
+
+
+        <StackPanel Grid.Column="2" Grid.Row="9" Orientation="Horizontal" HorizontalAlignment="Center">
+            <Button Content="Cancel" Width="60" Margin="4 1 4 1" Click="CancelPressed"/>
+            <Button Content="Add" Width="60" Margin="4 1 4 1" Click="AddPressed"/>
+        </StackPanel>
+    </Grid>
+</Window>
