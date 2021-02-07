@@ -12,6 +12,13 @@ using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using WeaponLib;
 
+
+// Assignment 2C
+// NAME: Zixiao Wang
+// STUDENT NUMBER: 2022599
+// Marks: 97/100
+// Comments: Great job!
+
 namespace Assignment2C
 {
     /// <summary>
@@ -99,6 +106,36 @@ namespace Assignment2C
             MyWeaponCollection.weapons.RemoveAt(weaponList.SelectedIndex);
             weaponList.Items.Refresh();
         }
+
+        //TODO_ERROR: -3
+        //TODO_COMMENT: In this part, you are just treating if it's different than all.
+        //if you keep pressing this filter and go to all, your list will become empty.
+        //Follow a suggestion for a fix:
+
+        //private void typeshow_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        //{
+        //    string type = (sender as ComboBox).SelectedItem as string;
+
+        //    if (Enum.TryParse<WeaponType>(type, out WeaponType weaponType))
+        //    {
+        //        if (weaponType == WeaponType.None)
+        //        {
+        //            weaponList.ItemsSource = MyWeaponCollection.weapons;
+        //            weaponList.Items.Refresh();
+        //        }
+        //        else
+        //        {
+        //            weaponList.ItemsSource = MyWeaponCollection.GetAllWeaponsOfType(weaponType);
+        //            weaponList.Items.Refresh();
+        //        }
+        //    }
+        //    else
+        //    {
+        //        weaponList.ItemsSource = MyWeaponCollection.weapons;
+        //        weaponList.Items.Refresh();
+        //    }
+        //}
+
 
         private void typeshow_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
