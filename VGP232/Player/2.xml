@@ -1,0 +1,14 @@
+<?xml version="1.0"?>
+<Spritesheet xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <Columns>4</Columns>
+  <OutputFile>1.png</OutputFile>
+  <OutputDirectory>C:\Users\steve\Desktop\VGP232\VGP232\VGP232\Player</OutputDirectory>
+  <IncludeMetaData>true</IncludeMetaData>
+  <InputPaths>
+    <string>C:\Users\steve\Desktop\VGP232\VGP232\VGP232\Player\player_climb2.png</string>
+    <string>C:\Users\steve\Desktop\VGP232\VGP232\VGP232\Player\player_duck.png</string>
+    <string>C:\Users\steve\Desktop\VGP232\VGP232\VGP232\Player\player_fall.png</string>
+    <string>C:\Users\steve\Desktop\VGP232\VGP232\VGP232\Player\player_hang.png</string>
+    <string>C:\Users\steve\Desktop\VGP232\VGP232\VGP232\Player\player_hold1.png</string>
+  </InputPaths>
+</Spritesheet>

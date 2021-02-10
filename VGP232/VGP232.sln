@@ -7,9 +7,13 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Assignment1", "Assignment1\
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Assignment2a", "Assignment2a\Assignment2a.csproj", "{3F2204A7-0874-465C-91EB-4F0971392FAB}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Assignment2C", "Assignment2C\Assignment2C.csproj", "{65953B0B-36A8-4E3C-B887-5B90606E0781}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Assignment2C", "Assignment2C\Assignment2C.csproj", "{65953B0B-36A8-4E3C-B887-5B90606E0781}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WeaponLib", "WeaponLib\WeaponLib.csproj", "{CA589A65-9B5B-4A68-AD76-8FF120C2960C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WeaponLib", "WeaponLib\WeaponLib.csproj", "{CA589A65-9B5B-4A68-AD76-8FF120C2960C}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TextureAtlasLib", "TextureAtlasLib\TextureAtlasLib.csproj", "{A45657AC-AB5F-4943-997F-033A4B8424F4}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Assignment3", "Assignment3\Assignment3.csproj", "{34E833E7-DCFD-46B0-A89C-C2339F32CB85}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -33,6 +37,14 @@ Global
 		{CA589A65-9B5B-4A68-AD76-8FF120C2960C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{CA589A65-9B5B-4A68-AD76-8FF120C2960C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{CA589A65-9B5B-4A68-AD76-8FF120C2960C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A45657AC-AB5F-4943-997F-033A4B8424F4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A45657AC-AB5F-4943-997F-033A4B8424F4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A45657AC-AB5F-4943-997F-033A4B8424F4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A45657AC-AB5F-4943-997F-033A4B8424F4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{34E833E7-DCFD-46B0-A89C-C2339F32CB85}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{34E833E7-DCFD-46B0-A89C-C2339F32CB85}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{34E833E7-DCFD-46B0-A89C-C2339F32CB85}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{34E833E7-DCFD-46B0-A89C-C2339F32CB85}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
