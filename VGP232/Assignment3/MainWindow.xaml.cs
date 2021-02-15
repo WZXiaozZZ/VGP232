@@ -16,6 +16,12 @@ using TextureAtlasLib;
 using System.Xml.Serialization;
 using System.Diagnostics;
 
+//NAME: 
+//STUDENT ID:
+//Grade: 100/100
+//Comments: Nicely done! Congrats!
+
+
 namespace Assignment3
 {
     /// <summary>

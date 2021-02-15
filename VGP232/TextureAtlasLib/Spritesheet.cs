@@ -143,6 +143,7 @@ namespace TextureAtlasLib
                             col = 0;
                             row++;
                         }
+                        spriteInfos.Add(sprite);
                     }
                 }
 
