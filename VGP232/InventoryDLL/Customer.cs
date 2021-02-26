@@ -5,23 +5,15 @@ namespace InventoryDLL
     [Serializable]
     public class Customer
     {
-        private int counter = 1;
         public int ID { get; set; }
         public string FirstName { get; set; }
         public string LastName { get; set; }
         public string PhoneNumber { get; set; }
         public string Email { get; set; }
 
-        public Customer()
+        public Customer(int id, string first, string last, string phone, string email)
         {
-            ID = counter;
-            counter++;
-        }
-
-        public Customer(string first, string last, string phone, string email)
-        {
-            ID = counter;
-            counter++;
+            ID = id;
             FirstName = first;
             LastName = last;
             PhoneNumber = phone;
@@ -61,6 +53,10 @@ namespace InventoryDLL
             return left.LastName.CompareTo(right.LastName);
         }
 
-        
+        public override string ToString()
+        {
+            return string.Format("{0},{1},{2},{3},{4}", ID, FirstName, LastName, PhoneNumber, Email);
+        }
     }
 }
+

@@ -65,5 +65,10 @@ namespace InventoryDLL
         {
             return left.Category.CompareTo(right.Category);
         }
+
+        public override string ToString()
+        {
+            return string.Format("{0},{1},{2},{3},{4}", ID, Name, Price, Quantity, Category);
+        }
     }
 }
