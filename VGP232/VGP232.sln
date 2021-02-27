@@ -23,7 +23,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "InventoryDLL", "InventoryDL
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TestWPF", "TestWPF\TestWPF.csproj", "{7399CABE-D531-4A47-8E21-61936C82D807}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Inventory", "Inventory\Inventory.csproj", "{944AC9E3-9E02-4C61-82C8-FA15A9FBCF94}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FinalProject_ToolName", "Inventory\FinalProject_ToolName.csproj", "{944AC9E3-9E02-4C61-82C8-FA15A9FBCF94}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 using InventoryDLL;
 
-namespace Inventory
+namespace FinalProject_ToolName
 {
     class GlobalVariable
     {

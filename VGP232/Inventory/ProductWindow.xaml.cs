@@ -11,7 +11,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using InventoryDLL;
 
-namespace Inventory
+namespace FinalProject_ToolName
 {
     /// <summary>
     /// Interaction logic for ProductWindow.xaml
@@ -27,9 +27,10 @@ namespace Inventory
             searchby.ItemsSource = new List<string>() { "ID", "Name", "Price", "Category", "All" };
             searchby.SelectedIndex = 0;
             productlist.ItemsSource = GlobalVariable.InventoryData.Products;
+            
         }
 
-        private void sort_btn(object sender, RoutedEventArgs e)
+        private void Sort_Btn(object sender, RoutedEventArgs e)
         {
             if (sortby.SelectedIndex == 0)
             {
@@ -55,12 +56,11 @@ namespace Inventory
             productlist.Items.Refresh();
         }
 
-        private void search_btn(object sender, RoutedEventArgs e)
+        private void Search_Btn(object sender, RoutedEventArgs e)
         {
             if (searchby.SelectedIndex == 0)
             {
-                int id;
-                if (int.TryParse(searchwith.Text, out id) || id <= 0)
+                if (int.TryParse(searchwith.Text, out int id) || id <= 0)
                 {
                     productlist.ItemsSource = GlobalVariable.InventoryData.Products.FindAll(x => x.ID == id);
                 }
@@ -80,8 +80,7 @@ namespace Inventory
             }
             else if (searchby.SelectedIndex == 2)
             {
-                double price;
-                if (double.TryParse(searchwith.Text, out price) || price <= 0)
+                if (double.TryParse(searchwith.Text, out double price) || price <= 0)
                 {
                     productlist.ItemsSource = GlobalVariable.InventoryData.Products.FindAll(x => x.Price <= price);
                 }
@@ -112,12 +111,16 @@ namespace Inventory
             productlist.Items.Refresh();
         }
 
-        private void new_btn(object sender, RoutedEventArgs e)
+        private void New_Btn(object sender, RoutedEventArgs e)
         {
-            
+            NewProductWindow window = new NewProductWindow();
+            window.ShowDialog();
+            SearchedData = false;
+            productlist.ItemsSource = GlobalVariable.InventoryData.Products;
+            productlist.Items.Refresh();
         }
 
-        private void remove_btn(object sender, RoutedEventArgs e)
+        private void Remove_Btn(object sender, RoutedEventArgs e)
         {
             if (productlist.SelectedIndex == -1)
             {
@@ -139,9 +142,32 @@ namespace Inventory
             productlist.Items.Refresh();
         }
 
-        private void edit_btn(object sender, RoutedEventArgs e)
+        private void Edit_Btn(object sender, RoutedEventArgs e)
         {
+            if (productlist.SelectedIndex == -1)
+            {
+                MessageBox.Show("You need to select a product to edit.", "Fail to edit");
+                return;
+            }
+            if (SearchedData)
+            {
+                int id = int.Parse(productlist.SelectedItem.ToString().Split(',')[0]);
+                EditProductWindow window = new EditProductWindow(GlobalVariable.InventoryData.Products.FindIndex(x => x.ID == id));
+                window.ShowDialog();
+            }
+            else
+            {
+                EditProductWindow window = new EditProductWindow(productlist.SelectedIndex);
+                window.ShowDialog();
+            }
+            SearchedData = false;
+            productlist.ItemsSource = GlobalVariable.InventoryData.Products;
+            productlist.Items.Refresh();
+        }
 
+        private void Back_Btn(object sender, RoutedEventArgs e)
+        {
+            Close();
         }
 
         private void Ascending_Checked(object sender, RoutedEventArgs e)

@@ -72,7 +72,7 @@ namespace InventoryDLL
 
 
         // Add Product
-        public bool AddProduct(out string message, string[] properties)
+        public bool AddProduct(out string message, params string[] properties)
         {
             if(properties.Length != 5)
             {
@@ -80,8 +80,7 @@ namespace InventoryDLL
                 return false;
             }
 
-            int id;
-            if (!int.TryParse(properties[0], out id) || id <= 0 || Products.Find(x => x.ID == id) == default(Product))
+            if (!int.TryParse(properties[0], out int id) || id <= 0 || Products.Find(x => x.ID == id) != default(Product))
             {
                 message = "ID should be an unique and positive integer.";
                 return false;
@@ -94,15 +93,13 @@ namespace InventoryDLL
                 return false;
             }
 
-            double price;
-            if (!double.TryParse(properties[2], out price) || price < 0)
+            if (!double.TryParse(properties[2], out double price) || price < 0)
             {
                 message = "Price should be a positive number.";
                 return false;
             }
 
-            int quantity;
-            if (!int.TryParse(properties[3], out quantity) || quantity <= 0)
+            if (!int.TryParse(properties[3], out int quantity) || quantity <= 0)
             {
                 message = "Quantity should be a positive integer.";
                 return false;
@@ -115,8 +112,8 @@ namespace InventoryDLL
 
         }
 
-        // Add Customer
-        public bool AddCustomer(out string message, string[] properties)
+        // Edit Product
+        public bool EditProduct(out string message, int index, params string[] properties)
         {
             if (properties.Length != 5)
             {
@@ -124,8 +121,48 @@ namespace InventoryDLL
                 return false;
             }
 
-            int id;
-            if (!int.TryParse(properties[0], out id) || id <= 0 || Customers.Find(x => x.ID == id) == default(Customer))
+            if (!int.TryParse(properties[0], out int id) || id <= 0 || (id != Products[index].ID && Products.Find(x => x.ID == id) != default(Product)))
+            {
+                message = "ID should be an unique and positive integer.";
+                return false;
+            }
+
+            string name = properties[1];
+            if (name == "")
+            {
+                message = "Name should not be empty.";
+                return false;
+            }
+
+            if (!double.TryParse(properties[2], out double price) || price < 0)
+            {
+                message = "Price should be a positive number.";
+                return false;
+            }
+
+            if (!int.TryParse(properties[3], out int quantity) || quantity <= 0)
+            {
+                message = "Quantity should be a positive integer.";
+                return false;
+            }
+
+            Products[index] = new Product(id, name, price, quantity, properties[4]);
+            ProductChanged = true;
+            message = "Successfully edit the product.";
+            return true;
+
+        }
+
+        // Add Customer
+        public bool AddCustomer(out string message, params string[] properties)
+        {
+            if (properties.Length != 5)
+            {
+                message = "Invalid number of property provided";
+                return false;
+            }
+
+            if (!int.TryParse(properties[0], out int id) || id <= 0 || Customers.Find(x => x.ID == id) != default(Customer))
             {
                 message = "ID should be an unique and positive integer.";
                 return false;
@@ -159,30 +196,24 @@ namespace InventoryDLL
         private void SerializeProduct()
         {
             FileStream fs = File.Open(GetPath(0), FileMode.Create);
-            using (StreamWriter writer = new StreamWriter(fs))
-            {
-                writer.WriteLine("ID,Name,Price,Quantity,Category");
-                Products.ForEach(writer.WriteLine);
-            }
+            using StreamWriter writer = new StreamWriter(fs);
+            writer.WriteLine("ID,Name,Price,Quantity,Category");
+            Products.ForEach(writer.WriteLine);
         }
 
         private void SerializeCustomer()
         {
             FileStream fs = File.Open(GetPath(1), FileMode.Create);
-            using (StreamWriter writer = new StreamWriter(fs))
-            {
-                writer.WriteLine("ID,FirstName,LastName,PhoneNubmer,Email");
-                Customers.ForEach(writer.WriteLine);
-            }
+            using StreamWriter writer = new StreamWriter(fs);
+            writer.WriteLine("ID,FirstName,LastName,PhoneNubmer,Email");
+            Customers.ForEach(writer.WriteLine);
         }
 
         private void SerializeCategory()
         {
             FileStream fs = File.Open(GetPath(2), FileMode.Create);
-            using (StreamWriter writer = new StreamWriter(fs))
-            {
-                Categories.ForEach(writer.WriteLine);
-            }
+            using StreamWriter writer = new StreamWriter(fs);
+            Categories.ForEach(writer.WriteLine);
         }
 
         public void SerializeData()
@@ -238,46 +269,40 @@ namespace InventoryDLL
         private void DeserializeProduct()
         {
             FileStream fs = File.Open(GetPath(0), FileMode.Open);
-            using(StreamReader reader = new StreamReader(fs))
+            using StreamReader reader = new StreamReader(fs);
+            reader.ReadLine();
+            string line = reader.ReadLine();
+            while (line != null)
             {
-                reader.ReadLine();
-                string line = reader.ReadLine();
-                while (line != null)
-                {
-                    string[] values = line.Split(',');
-                    Products.Add(new Product(int.Parse(values[0]), values[1], double.Parse(values[2]), int.Parse(values[3]), values[4]));
-                    line = reader.ReadLine();
-                }
+                string[] values = line.Split(',');
+                Products.Add(new Product(int.Parse(values[0]), values[1], double.Parse(values[2]), int.Parse(values[3]), values[4]));
+                line = reader.ReadLine();
             }
         }
 
         private void DeserializeCustomer()
         {
             FileStream fs = File.Open(GetPath(1), FileMode.Open);
-            using (StreamReader reader = new StreamReader(fs))
+            using StreamReader reader = new StreamReader(fs);
+            reader.ReadLine();
+            string line = reader.ReadLine();
+            while (line != null)
             {
-                reader.ReadLine();
-                string line = reader.ReadLine();
-                while (line != null)
-                {
-                    string[] values = line.Split(',');
-                    Customers.Add(new Customer(int.Parse(values[0]), values[1], values[2], values[3], values[4]));
-                    line = reader.ReadLine();
-                }
+                string[] values = line.Split(',');
+                Customers.Add(new Customer(int.Parse(values[0]), values[1], values[2], values[3], values[4]));
+                line = reader.ReadLine();
             }
         }
 
         private void DeserializeCategory()
         {
             FileStream fs = File.Open(GetPath(2), FileMode.Open);
-            using (StreamReader reader = new StreamReader(fs))
+            using StreamReader reader = new StreamReader(fs);
+            string line = reader.ReadLine();
+            while (line != null)
             {
-                string line = reader.ReadLine(), message = "";
-                while (line != null)
-                {
-                    _ = AddCategory(out message, line);
-                    line = reader.ReadLine();
-                }
+                _ = AddCategory(out _, line);
+                line = reader.ReadLine();
             }
         }
 

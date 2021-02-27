@@ -1,21 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
-using InventoryDLL;
 
-namespace Inventory
+using System.Windows;
+
+
+namespace FinalProject_ToolName
 {
     /// <summary>
     /// Interaction logic for Dashboard.xaml
@@ -27,23 +17,23 @@ namespace Inventory
             InitializeComponent();
         }
 
-        private void product_btn(object sender, RoutedEventArgs e)
+        private void Product_Btn(object sender, RoutedEventArgs e)
         {
             ProductWindow window = new ProductWindow();
-            window.Show();
-            Close();
-            
+            Hide();
+            window.ShowDialog();
+            Show();
         }
-        private void customer_btn(object sender, RoutedEventArgs e)
+        private void Customer_Btn(object sender, RoutedEventArgs e)
         {
 
         }
-        private void category_btn(object sender, RoutedEventArgs e)
+        private void Category_Btn(object sender, RoutedEventArgs e)
         {
 
         }
 
-        private void exit_Click(object sender, RoutedEventArgs e)
+        private void Exit_Click(object sender, RoutedEventArgs e)
         {
             GlobalVariable.InventoryData.SerializeData();
             Close();
