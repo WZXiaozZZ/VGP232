@@ -24,10 +24,15 @@ namespace FinalProject_ToolName
             window.ShowDialog();
             Show();
         }
+
         private void Customer_Btn(object sender, RoutedEventArgs e)
         {
-
+            CustomerWindow window = new CustomerWindow();
+            Hide();
+            window.ShowDialog();
+            Show();
         }
+
         private void Category_Btn(object sender, RoutedEventArgs e)
         {
 

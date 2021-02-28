@@ -23,9 +23,7 @@ namespace InventoryDLL
         public List<Customer> Customers { get; set; }
         public List<string> Categories { get; set; }
 
-        public int SortingOrderProduct { get; set; } // 1 for Ascending order, -1 for Descending order
-        public int SortingOrderCustomer { get; set; } // 1 for Ascending order, -1 for Descending order
-        public bool SortingOrderCategory { get; set; } // False for Ascending order, True for Descending order
+        public bool SortingOrder { get; set; } // False for Ascending order, True for Descending order
         public bool ProductChanged { get; set; }
         public bool CustomerChanged { get; set; }
         public bool CategoryChanged { get; set; }
@@ -36,9 +34,7 @@ namespace InventoryDLL
             Customers = new List<Customer>();
             Categories = new List<string>();
 
-            SortingOrderProduct = 1;
-            SortingOrderCustomer = 1;
-            SortingOrderCategory = false;
+            SortingOrder = false;
             ProductChanged = false;
             CustomerChanged = false;
             CategoryChanged = false;
@@ -50,21 +46,35 @@ namespace InventoryDLL
         public delegate int SortProductFunction(Product x, Product y);
         public void SortProducts(SortProductFunction sorter)
         {
-            Products.Sort((x, y) => SortingOrderProduct * sorter(x, y));
+            if (SortingOrder)
+            {
+                Products.Sort((x, y) => sorter(y, x));
+            }
+            else
+            {
+                Products.Sort((x, y) => sorter(x, y));
+            }
         }
 
         // Sort Customers
         public delegate int SortCustomerFunction(Customer x, Customer y);
         public void SortCustomers(SortCustomerFunction sorter)
         {
-            Customers.Sort((x, y) => SortingOrderCustomer * sorter(x, y));
+            if (SortingOrder)
+            {
+                Customers.Sort((x, y) => sorter(y, x)); 
+            }
+            else
+            {
+                Customers.Sort((x, y) => sorter(x, y)); 
+            }
         }
 
         // Sort Categories
         public void SortCategories()
         {
             Categories.Sort();
-            if (SortingOrderCategory)
+            if (SortingOrder)
             {
                 Categories.Reverse();
             }
@@ -175,7 +185,34 @@ namespace InventoryDLL
             }
 
             Customers.Add(new Customer(id, properties[1], properties[2], properties[3], properties[4]));
+            CustomerChanged = true;
             message = "Successfully add a new customer.";
+            return true;
+        }
+
+        // Edit Customer
+        public bool EditCustomer(out string message, int index, params string[] properties)
+        {
+            if (properties.Length != 5)
+            {
+                message = "Invalid number of property provided";
+                return false;
+            }
+
+            if (!int.TryParse(properties[0], out int id) || id <= 0 || (id != Customers[index].ID && Customers.Find(x => x.ID == id) != default(Customer)))
+            {
+                message = "ID should be an unique and positive integer.";
+                return false;
+            }
+
+            if (properties[1] == "" || properties[2] == "")
+            {
+                message = "First and Last Name can not be empty.";
+                return false;
+            }
+            Customers[index] = new Customer(id, properties[1], properties[2], properties[3], properties[4]);
+            CustomerChanged = true;
+            message = "Successfully edit the customer.";
             return true;
         }
 

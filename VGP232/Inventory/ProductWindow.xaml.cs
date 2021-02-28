@@ -27,7 +27,7 @@ namespace FinalProject_ToolName
             searchby.ItemsSource = new List<string>() { "ID", "Name", "Price", "Category", "All" };
             searchby.SelectedIndex = 0;
             productlist.ItemsSource = GlobalVariable.InventoryData.Products;
-            
+            GlobalVariable.InventoryData.SortingOrder = false;
         }
 
         private void Sort_Btn(object sender, RoutedEventArgs e)
@@ -172,12 +172,12 @@ namespace FinalProject_ToolName
 
         private void Ascending_Checked(object sender, RoutedEventArgs e)
         {
-            GlobalVariable.InventoryData.SortingOrderProduct = 1;
+            GlobalVariable.InventoryData.SortingOrder = false;
         }
 
         private void Descending_Checked(object sender, RoutedEventArgs e)
         {
-            GlobalVariable.InventoryData.SortingOrderProduct = -1;
+            GlobalVariable.InventoryData.SortingOrder = true;
         }
     }
 }
