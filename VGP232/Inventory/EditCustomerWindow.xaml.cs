@@ -17,7 +17,7 @@ namespace FinalProject_ToolName
     /// </summary>
     public partial class EditCustomerWindow : Window
     {
-        private int index;
+        readonly private int index;
         public EditCustomerWindow()
         {
             InitializeComponent();
