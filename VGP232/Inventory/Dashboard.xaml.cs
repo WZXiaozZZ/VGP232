@@ -35,7 +35,10 @@ namespace FinalProject_ToolName
 
         private void Category_Btn(object sender, RoutedEventArgs e)
         {
-
+            CategoryWindow window = new CategoryWindow();
+            Hide();
+            window.ShowDialog();
+            Show();
         }
 
         private void Exit_Click(object sender, RoutedEventArgs e)

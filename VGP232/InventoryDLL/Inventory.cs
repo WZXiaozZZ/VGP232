@@ -230,6 +230,35 @@ namespace InventoryDLL
             return true;
         }
 
+        // Edit Category
+        public bool EditCategory(out string message, int index, string value)
+        {
+            if (Categories[index] == value)
+            {
+                message = "The category is unchanged.";
+                return false;
+            }
+            if (Categories.Contains(value))
+            {
+                message = "The category already exists.";
+                return false;
+            }
+
+            CategoryChanged = true;
+            foreach (Product product in Products)
+            {
+                if (product.Category == Categories[index])
+                {
+                    product.Category = value;
+                    ProductChanged = true;
+                }
+            }
+
+            Categories[index] = value;
+            message = "Successfully edit the category.";
+            return true;
+        }
+
         private void SerializeProduct()
         {
             FileStream fs = File.Open(GetPath(0), FileMode.Create);
@@ -378,6 +407,24 @@ namespace InventoryDLL
                 }
             }
             Categories.RemoveAt(index);
+        }
+
+        public void RemoveCategory(string category)
+        {
+            if (category == "None")
+            {
+                return;
+            }
+            CategoryChanged = true;
+            foreach (Product product in Products)
+            {
+                if (product.Category == category)
+                {
+                    product.Category = "None";
+                    ProductChanged = true;
+                }
+            }
+            Categories.Remove(category);
         }
     }
 }
