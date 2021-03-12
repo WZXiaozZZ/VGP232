@@ -23,7 +23,6 @@
         </Grid.ColumnDefinitions>
 
 
-        <TextBlock Grid.ColumnSpan="3" Background="Gray"/>
         <TextBlock Text="Welcome to the" Grid.Column="1" Grid.Row="1" Grid.RowSpan="2" HorizontalAlignment="Center" VerticalAlignment="Top" FontSize="40"/>
         <TextBlock Text="Inventory" Grid.Column="1" Grid.Row="1" Grid.RowSpan="2" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="40"/>
         <TextBlock Text="Management System" Grid.Column="1" Grid.Row="1" Grid.RowSpan="2" HorizontalAlignment="Center" VerticalAlignment="Bottom" FontSize="40"/>
@@ -33,8 +32,9 @@
         <Button Content="Customer" Grid.Row="1" Grid.RowSpan="3" Grid.Column="2" FontSize="35" Background="LightGreen" Click="Customer_Btn" BorderThickness="0"/>
         <Button Content="Category" Grid.Row="3" Grid.Column="1" FontSize="35" Background="LightPink" Click="Category_Btn" BorderThickness="0"/>
 
-        <Button Content="Exit" Grid.Column="3" FontSize="20" Click="Exit_Click" BorderThickness="0"/>
-
+        <Button Content="Export" Grid.Column="0" FontSize="20" Click="Export_Click" BorderThickness="0"/>
+        <Button Content="Import" Grid.Column="1" FontSize="20" Click="Import_Click" BorderThickness="0"/>
+        <Button Content="Exit" Grid.Column="2" FontSize="20" Click="Exit_Click" BorderThickness="0"/>
 
     </Grid>
 </Window>

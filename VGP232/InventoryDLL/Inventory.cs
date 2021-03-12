@@ -1,9 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
+using Newtonsoft.Json;
 
 namespace InventoryDLL
 {
+    [Serializable]
     public class Inventory
     {
         readonly private string DataFilesPath = Path.Combine(Directory.GetParent(Directory.GetCurrentDirectory()).Parent.Parent.FullName, "database");
@@ -19,8 +21,13 @@ namespace InventoryDLL
             return Path.Combine(DataFilesPath, SerializedTextFiles[i]);
         }
 
+        [JsonProperty(Required = Required.Always)]
         public List<Product> Products { get; set; }
+
+        [JsonProperty(Required = Required.Always)]
         public List<Customer> Customers { get; set; }
+        
+        [JsonProperty(Required = Required.Always)]
         public List<string> Categories { get; set; }
 
         public bool SortingOrder { get; set; } // False for Ascending order, True for Descending order
@@ -39,7 +46,7 @@ namespace InventoryDLL
             CustomerChanged = false;
             CategoryChanged = false;
 
-            DeserializeData();
+            //DeserializeData();
         }
 
         // Sort Products
@@ -425,6 +432,53 @@ namespace InventoryDLL
                 }
             }
             Categories.Remove(category);
+        }
+
+
+        public bool SaveToJson(string path)
+        {
+            try
+            {
+                using (StreamWriter sw = File.CreateText(path))
+                {
+                    string json = JsonConvert.SerializeObject(this);
+                    sw.Write(json);
+                    return true;
+                }
+            }
+            catch (Exception)
+            {
+                return false;
+            }
+        }
+
+        public bool LoadFromJson(string path)
+        {
+            try
+            {
+                using(StreamReader sr = new StreamReader(path))
+                {
+                    string json = sr.ReadToEnd();
+                    Inventory data = JsonConvert.DeserializeObject<Inventory>(json);
+                    Customers.Clear();
+                    Customers = data.Customers;
+                    Products.Clear();
+                    Products = data.Products;
+                    Categories.Clear();
+                    Categories = data.Categories;
+
+                    SortingOrder = false;
+                    ProductChanged = false;
+                    CustomerChanged = false;
+                    CategoryChanged = false;
+                    return true;
+                }
+            }
+            catch (Exception)
+            {
+                DeserializeData();
+                return false;
+            }
         }
     }
 }

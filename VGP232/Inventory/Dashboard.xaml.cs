@@ -1,9 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
-
+using Newtonsoft.Json;
 using System.Windows;
-
+using Microsoft.Win32;
+using System.Windows.Controls;
 
 namespace FinalProject_ToolName
 {
@@ -41,9 +42,51 @@ namespace FinalProject_ToolName
             Show();
         }
 
+        private void Export_Click(object sender, RoutedEventArgs e)
+        {
+            SaveFileDialog saveFile = new SaveFileDialog();
+            saveFile.Filter = "Json Files | *.json";
+            if (saveFile.ShowDialog() == true)
+            {
+                if (GlobalVariable.InventoryData.SaveToJson(saveFile.FileName))
+                {
+                    MessageBox.Show("Successfully export the inventory data.");
+                }
+                else
+                {
+                    MessageBox.Show("Unable to export the inventory data");
+                }
+            }
+
+        }
+
+
+        private void Import_Click(object sender, RoutedEventArgs e)
+        {
+            OpenFileDialog openFile = new OpenFileDialog();
+            openFile.Filter = "Json Files | *.json";
+            if (openFile.ShowDialog() == true)
+            {
+                if (GlobalVariable.InventoryData.LoadFromJson(openFile.FileName))
+                {
+                    MessageBox.Show("Successfully import the inventory data.");
+                }
+                else
+                {
+                    MessageBox.Show("Unable to import the inventory data. Loading data from local database.");
+                }
+
+            }
+        }
+
+
         private void Exit_Click(object sender, RoutedEventArgs e)
         {
-            GlobalVariable.InventoryData.SerializeData();
+            System.Windows.Forms.DialogResult dialogResult = (System.Windows.Forms.DialogResult)MessageBox.Show("Would you save the inventory data?", "Save & Exit", (MessageBoxButton)System.Windows.Forms.MessageBoxButtons.YesNo);
+            if (dialogResult == System.Windows.Forms.DialogResult.Yes)
+            {
+                GlobalVariable.InventoryData.SerializeData();
+            }
             Close();
         }
     }
