@@ -44,8 +44,10 @@ namespace FinalProject_ToolName
 
         private void Export_Click(object sender, RoutedEventArgs e)
         {
-            SaveFileDialog saveFile = new SaveFileDialog();
-            saveFile.Filter = "Json Files | *.json";
+            SaveFileDialog saveFile = new SaveFileDialog
+            {
+                Filter = "Json Files | *.json"
+            };
             if (saveFile.ShowDialog() == true)
             {
                 if (GlobalVariable.InventoryData.SaveToJson(saveFile.FileName))
@@ -63,8 +65,10 @@ namespace FinalProject_ToolName
 
         private void Import_Click(object sender, RoutedEventArgs e)
         {
-            OpenFileDialog openFile = new OpenFileDialog();
-            openFile.Filter = "Json Files | *.json";
+            OpenFileDialog openFile = new OpenFileDialog
+            {
+                Filter = "Json Files | *.json"
+            };
             if (openFile.ShowDialog() == true)
             {
                 if (GlobalVariable.InventoryData.LoadFromJson(openFile.FileName))
