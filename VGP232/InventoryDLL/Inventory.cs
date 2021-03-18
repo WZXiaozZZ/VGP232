@@ -46,6 +46,8 @@ namespace InventoryDLL
             CustomerChanged = false;
             CategoryChanged = false;
 
+            Categories.Add("None");
+
             //DeserializeData();
         }
 
@@ -460,6 +462,11 @@ namespace InventoryDLL
                 {
                     string json = sr.ReadToEnd();
                     Inventory data = JsonConvert.DeserializeObject<Inventory>(json);
+                    if (data.Categories.Count == 0)
+                    {
+                        DeserializeData();
+                        return false;
+                    }
                     Customers.Clear();
                     Customers = data.Customers;
                     Products.Clear();
