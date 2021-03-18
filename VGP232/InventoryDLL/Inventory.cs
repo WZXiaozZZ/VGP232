@@ -46,7 +46,6 @@ namespace InventoryDLL
             CustomerChanged = false;
             CategoryChanged = false;
 
-            Categories.Add("None");
 
             //DeserializeData();
         }

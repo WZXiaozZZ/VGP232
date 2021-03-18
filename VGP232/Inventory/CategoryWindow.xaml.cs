@@ -11,6 +11,10 @@ namespace FinalProject_ToolName
         public CategoryWindow()
         {
             InitializeComponent();
+            if (GlobalVariable.InventoryData.Categories.Count==0)
+            {
+                GlobalVariable.InventoryData.Categories.Add("None");
+            }
             categorylist.ItemsSource = GlobalVariable.InventoryData.Categories;
             GlobalVariable.InventoryData.SortingOrder = false;
         }

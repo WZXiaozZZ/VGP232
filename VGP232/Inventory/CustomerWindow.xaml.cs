@@ -22,6 +22,10 @@ namespace FinalProject_ToolName
         public CustomerWindow()
         {
             InitializeComponent();
+            if (GlobalVariable.InventoryData.Categories.Count == 0)
+            {
+                GlobalVariable.InventoryData.Categories.Add("None");
+            }
             sortby.ItemsSource = new List<string>() { "ID", "Firstname", "Lastname"};
             sortby.SelectedIndex = 0;
             searchby.ItemsSource = new List<string>() { "ID", "Firstname", "Lastname", "Phone number", "Email", "All" };
